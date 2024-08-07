@@ -11,7 +11,7 @@ chrome.runtime.sendMessage({action: 'checkStatus'}, (response) => {
                 loginButton.click();
         
                 setTimeout(() => {
-                    window.location.href = 'https://www.example.com/dashboard/datalist';
+                    window.location.href = 'https://www.getwhoisdb.com/dashboard/datalist';
                 }, 1500); 
             } else {
                 console.error("Login form elements not found!");

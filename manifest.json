@@ -4,7 +4,7 @@
     "description": "Auto login & add download buttons to a table",
     "version": "1.0",
     "permissions": ["activeTab", "scripting", "storage"],
-    "host_permissions": ["https://www.example.com/*"],
+    "host_permissions": ["https://www.getwhoisdb.com/*"],
     "action": {
       "default_popup": "popup.html"
     },
@@ -13,7 +13,7 @@
     },
     "content_scripts": [
       {
-        "matches": ["https://www.example.com/login"],
+        "matches": ["https://www.getwhoisdb.com/login"],
         "js": ["content.js"],
         "run_at": "document_end"
       }
