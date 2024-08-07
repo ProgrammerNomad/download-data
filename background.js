@@ -1,33 +1,42 @@
 let isRunning = false;
 
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
-    if (message.action === 'start') {
-        isRunning = true;
-        chrome.tabs.create({ url: 'https://www.getwhoisdb.com/login' });
-        sendResponse({isRunning: isRunning});
-    } else if (message.action === 'stop') {
-        isRunning = false;
-        sendResponse({isRunning: isRunning});
-    } else if (message.action === 'checkStatus') {
-        sendResponse({isRunning: isRunning});
-    }
+  if (message.action === "start") {
+    isRunning = true;
+    chrome.tabs.create({ url: "https://www.getwhoisdb.com/login" });
+    sendResponse({ isRunning: isRunning });
+  } else if (message.action === "stop") {
+    isRunning = false;
+    sendResponse({ isRunning: isRunning });
+  } else if (message.action === "checkStatus") {
+    sendResponse({ isRunning: isRunning });
+  }
 });
 
 chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
-    if (isRunning) {
-        if (tab.url === 'https://www.getwhoisdb.com/login') {
-            chrome.scripting.executeScript({
-                target: { tabId: tabId },
-                files: ['content.js']
-            });
-        } else if (
-            tab.url === 'https://www.getwhoisdb.com/dashboard/datalist' &&
-            changeInfo.status === 'complete'
-        ) {
-            chrome.scripting.executeScript({
-                target: { tabId: tabId },
-                files: ['table.js']
-            });
-        }
+  if (isRunning) {
+    if (tab.url === "https://www.getwhoisdb.com/login") {
+      chrome.scripting.executeScript({
+        target: { tabId: tabId },
+        files: ["content.js"],
+      });
+    } else if (
+      tab.url.startsWith("https://www.getwhoisdb.com") &&
+      tab.url !== "https://www.getwhoisdb.com/dashboard/datalist" &&
+      tab.url !== "https://www.getwhoisdb.com/login"
+    ) {
+      // Redirect other pages to the datalist page
+      chrome.tabs.update(tabId, {
+        url: "https://www.getwhoisdb.com/dashboard/datalist",
+      });
+    } else if (
+      tab.url === "https://www.getwhoisdb.com/dashboard/datalist" &&
+      changeInfo.status === "complete"
+    ) {
+      chrome.scripting.executeScript({
+        target: { tabId: tabId },
+        files: ["table.js"],
+      });
     }
+  }
 });
