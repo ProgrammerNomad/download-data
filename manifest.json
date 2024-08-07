@@ -3,11 +3,17 @@
     "name": "Auto Login & Download",
     "description": "Auto login & add download buttons to a table",
     "version": "1.0",
-    "permissions": ["activeTab", "scripting"],
-    "host_permissions": ["https://www.getwhoisdb.com/*"],
+    "permissions": ["activeTab", "scripting", "storage"],
+    "host_permissions": ["https://www.example.com/*"],
+    "action": {
+      "default_popup": "popup.html"
+    },
+    "background": {
+      "service_worker": "background.js"
+    },
     "content_scripts": [
       {
-        "matches": ["https://www.getwhoisdb.com/login"],
+        "matches": ["https://www.example.com/login"],
         "js": ["content.js"],
         "run_at": "document_end"
       }
@@ -15,7 +21,8 @@
     "web_accessible_resources": [
       {
         "resources": ["table.js"],
-        "matches": ["<all_urls>"] 
+        "matches": ["<all_urls>"]
       }
     ]
-  }  
+  }
+  
