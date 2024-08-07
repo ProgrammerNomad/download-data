@@ -6,8 +6,8 @@ chrome.runtime.sendMessage({action: 'checkStatus'}, (response) => {
             const loginButton = document.querySelector('button[type="submit"]'); 
 
             if (emailInput && passwordInput && loginButton) {
-                emailInput.value = 'aws@gmail.com';
-                passwordInput.value = '123ASD';
+                emailInput.value = 'srapsware@gmail.com';
+                passwordInput.value = 'DB66877';
                 loginButton.click();
         
                 setTimeout(() => {
