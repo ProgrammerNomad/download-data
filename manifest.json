@@ -4,18 +4,18 @@
     "description": "Auto login & add download buttons to a table",
     "version": "1.0",
     "permissions": ["activeTab", "scripting"],
-    "host_permissions": ["https://www.getwhoisdb.com/*"], 
+    "host_permissions": ["https://www.getwhoisdb.com/*"],
     "content_scripts": [
       {
         "matches": ["https://www.getwhoisdb.com/login"],
         "js": ["content.js"],
-        "run_at": "document_end" 
+        "run_at": "document_end"
       }
     ],
     "web_accessible_resources": [
       {
         "resources": ["table.js"],
-        "matches": ["https://www.getwhoisdb.com/dashboard/datalist"]
+        "matches": ["<all_urls>"] 
       }
     ]
   }  
